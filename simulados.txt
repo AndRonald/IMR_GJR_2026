@@ -1,0 +1,244 @@
+simulados para teste
+
+Pergunta 1 (1 ponto)
+ 
+
+Um robô móvel autônomo precisa se deslocar até um ponto de entrega em um ambiente parcialmente conhecido, onde obstáculos estáticos já constam no mapa, mas pessoas e carrinhos se movem de forma imprevisível. Qual arquitetura de navegação é mais adequada para esse cenário e por quê?
+Opções da pergunta 1:
+	
+
+Arquitetura híbrida, combinando um planejador global (como A*) para traçar rotas livres de mínimos locais sobre o mapa estático e uma camada reativa local para desviar de obstáculos dinâmicos em tempo real.
+	
+	
+
+Arquitetura puramente reativa baseada apenas em sensores de proximidade, pois mapas estáticos tornam o processamento lento e impedem o robô de contornar qualquer objeto em formato de U.
+	
+	
+
+Planejamento global offline exclusivo, executando a lista de coordenadas gerada inicialmente sem consultar sensores durante o deslocamento, o que evita oscilações de trajetória.
+	
+	
+
+Controle teleoperado assistido por odometria pura, dispensando sensores externos de distância desde que o motor possua controle preciso de aceleração e frenagem.
+	
+Pergunta 2 (1 ponto)
+ 
+
+No algoritmo de busca A* (A-estrela), cada nó avaliado recebe uma pontuação f(n) = g(n) + h(n). Para garantir que o algoritmo encontre sempre o caminho ótimo (de menor custo real) em uma grade de navegação bidimensional, qual propriedade matemática a função heurística h(n) deve satisfazer?
+Opções da pergunta 2:
+	
+
+Ser admissível, ou seja, nunca superestimar o custo real mínimo para alcançar o objetivo a partir do nó atual.
+	
+	
+
+Ser sempre superior ao custo acumulado g(n), forçando o algoritmo a explorar exclusivamente os nós mais próximos da origem antes de avançar.
+	
+	
+
+Assumir valor constante igual a zero em todas as células livres, transformando a busca em um algoritmo guloso puro sem verificação de custo acumulado.
+	
+	
+
+Multiplicar o custo do terreno pelo número total de obstáculos no mapa para penalizar qualquer movimento diagonal.
+	
+Pergunta 3 (1 ponto)
+ 
+
+Em uma malha de navegação utilizada pelo algoritmo A*, todas as células transitáveis recebem custo base 1.0, exceto uma faixa central de piso guia que recebe custo 0.45. Qual será o comportamento esperado do planejador ao calcular uma rota entre dois pontos?
+Opções da pergunta 3:
+	
+
+O planejador tenderá a priorizar o deslocamento sobre a faixa de custo 0.45 sempre que o desvio necessário para alcançá-la não ultrapassar a economia de custo obtida no trajeto.
+	
+	
+
+O algoritmo ignorará completamente as células de custo 1.0 e falhará caso não exista um caminho contínuo composto exclusivamente por células de custo 0.45.
+	
+	
+
+O robô aumentará automaticamente sua velocidade física máxima em 55% ao passar sobre a faixa de custo 0.45, independentemente dos limites dos motores.
+	
+	
+
+A heurística h(n) passará a superestimar o percurso, fazendo com que o A* escolha sempre a linha reta geométrica e ignore a faixa preferencial.
+	
+Pergunta 4 (1 ponto)
+ 
+
+Antes de executar um algoritmo de busca em grafo, os obstáculos do mapa costumam ser 'inflados' (expandidos) por uma margem correspondente ao raio do robô mais uma folga de segurança. Qual é o principal objetivo dessa técnica conhecida como Espaço de Configuração (C-Space)?
+Opções da pergunta 4:
+	
+
+Reduzir geometricamente o robô a um ponto adimensional durante a busca de caminho, garantindo que qualquer trajetória válida no grafo mantenha o corpo físico do robô livre de colisões.
+	
+	
+
+Aumentar o alcance máximo dos sensores ópticos e ultrassônicos para que detectem objetos atrás de paredes opacas.
+	
+	
+
+Eliminar a necessidade de calcular diferenças angulares na cinemática do robô, permitindo que ele faça curvas de 90 graus instantaneamente sem desacelerar.
+	
+	
+
+Reduzir o número de células do grid de memória para zero, substituindo a matriz de ocupação por uma única equação linear.
+	
+Pergunta 5 (1 ponto)
+ 
+
+Sensores de distância baseados em feixes (como LiDAR 2D) estão sujeitos a ruídos gaussianos e falhas pontuais de leitura (dropouts), nas quais um feixe retorna alcance máximo mesmo diante de um obstáculo próximo. Por que um filtro de mediana temporal sobre as últimas 3 amostras é preferível a uma média móvel simples para tratar esse problema?
+Opções da pergunta 5:
+	
+
+Porque a mediana rejeita completamente valores discrepantes isolados (outliers de um único quadro) sem distorcer a distância real nem suavizar em excesso as bordas bruscas dos obstáculos.
+	
+	
+
+Porque a mediana exige apenas uma única leitura instantânea do sensor, dispensando o armazenamento de histórico em buffer.
+	
+	
+
+Porque a média móvel sempre retorna zero quando encontra valores repetidos, fazendo o robô frear continuamente em corredores vazios.
+	
+	
+
+Porque a mediana aumenta artificialmente a frequência de amostragem do hardware do sensor, dobrando o número de feixes emitidos por segundo.
+	
+Pergunta 6 (1 ponto)
+ 
+
+Ao cruzar uma via com tráfego de veículos em alta velocidade, verificar apenas se a caixa delimitadora atual de um veículo sobrepõe a posição atual do robô é insuficiente para garantir segurança. Qual abordagem preditiva resolve essa limitação?
+Opções da pergunta 6:
+	
+
+Projetar o volume ou zona varrida pelo veículo ao longo de um horizonte futuro de tempo (com base em sua velocidade e direção) e verificar interseções antes que ele alcance o ponto de cruzamento.
+	
+	
+
+Ignorar veículos que estejam a mais de 5 pixels de distância e confiar exclusivamente na velocidade máxima dos motores do robô para atravessar mais rápido.
+	
+	
+
+Desligar os sensores frontais durante a travessia para evitar que o robô pare no meio da pista ao detectar sombras no asfalto.
+	
+	
+
+Reduzir o raio de colisão do robô para zero durante o movimento retilíneo, aplicando verificação geométrica apenas quando o robô estiver parado.
+	
+Pergunta 7 (1 ponto)
+ 
+
+Na simulação e no controle discreto de robôs móveis, a atualização da posição e da orientação utiliza o intervalo de tempo decorrido entre ciclos (dt), aplicando rampas finitas de aceleração e desaceleração. Qual é a consequência técnica de atualizar a posição multiplicando a velocidade por dt?
+Opções da pergunta 7:
+	
+
+Garantir consistência física do deslocamento (em unidades por segundo) independentemente de variações na taxa de atualização (FPS) do processador.
+	
+	
+
+Permitir que o robô teletransporte instantaneamente para o destino final sempre que a taxa de quadros cair abaixo de 60 FPS.
+	
+	
+
+Eliminar a necessidade de funções trigonométricas (seno e cosseno) para decompor a velocidade linear nos eixos X e Y.
+	
+	
+
+Zerar o erro de arredondamento angular, fazendo com que ângulos em graus e radianos tenham exatamente o mesmo valor numérico.
+	
+Pergunta 8 (1 ponto)
+ 
+
+Em uma Máquina de Estados Finitos (FSM) que controla a navegação de um robô autônomo, o agente pode entrar no estado DESVIANDO ao encontrar um obstáculo local. Caso o robô permaneça nesse estado continuamente por mais de 3,5 segundos sem conseguir retomar a rota, qual ação de recuperação evita que ele fique preso em um mínimo local (deadlock)?
+Opções da pergunta 8:
+	
+
+Disparar um timeout de evasão que invalida a rota atual e força o planejador global (A*) a recalcular um novo caminho a partir da posição corrente do robô.
+	
+	
+
+Manter o robô girando indefinidamente no mesmo sentido com velocidade angular máxima até que o obstáculo desapareça sozinho.
+	
+	
+
+Desativar permanentemente a transição para o estado FREIO_EMERGENCIA para que o robô empurre o obstáculo para fora do caminho.
+	
+	
+
+Reiniciar todas as variáveis de odometria para (0, 0) sem atualizar o mapa, fazendo o robô acreditar que já chegou ao destino.
+	
+Pergunta 9 (1 ponto)
+ 
+
+No controle coordenado de travessias urbanas automatizadas, por que o ciclo lógico entre o fechamento do sinal veicular (amarelo -> vermelho) e a abertura do sinal de pedestres inclui uma fase intermediária de 'todos vermelhos' (All-Red) antes de autorizar o avanço do robô?
+Opções da pergunta 9:
+	
+
+Para compensar a inércia e a distância de frenagem finita dos veículos (d = v² / 2a), garantindo que carros que já estavam próximos ou cruzando a linha de retenção esvaziem a área antes do início da travessia.
+	
+	
+
+Para economizar energia elétrica das lâmpadas do semáforo, mantendo todos os LEDs apagados durante metade do ciclo operacional.
+	
+	
+
+Para permitir que o algoritmo A* reinicie o computador de bordo do robô a cada troca de sinal.
+	
+	
+
+Para reduzir a precisão do LiDAR durante a travessia, evitando que o robô detecte as faixas pintadas no asfalto.
+	
+Pergunta 10 (1 ponto)
+ 
+
+Analise atentamente o trecho de código abaixo, que representa o ciclo de atualização (passo_controle) de um robô autônomo móvel equipado com sensor frontal de distância e controle cinemático:
+
+import math
+from collections import deque
+
+class ControladorAutonomo:
+    def __init__(self):
+        self.x = 0.0
+        self.y = 0.0
+        self.theta = 0.0          # Orientação em radianos
+        self.v = 0.0              # Velocidade linear atual (m/s)
+        self.a_freio = 4.0        # Desaceleração máxima (m/s²)
+        self.janela_sensor = deque(maxlen=3)
+        self.estado = "NAVEGANDO"
+
+    def filtrar_leitura(self, leitura_bruta):
+        self.janela_sensor.append(leitura_bruta)
+        amostras_ordenadas = sorted(self.janela_sensor)
+        return amostras_ordenadas[len(amostras_ordenadas) // 2]
+
+    def passo_controle(self, leitura_bruta, angulo_alvo, dt):
+        dist_segura = self.filtrar_leitura(leitura_bruta)
+        dist_parada = (self.v ** 2) / (2.0 * self.a_freio)
+
+        # Camada de Decisão Hierárquica (FSM)
+        if dist_segura <= dist_parada + 0.30:
+            self.estado = "FREIO_EMERGENCIA"
+            v_desejada = 0.0
+            w_desejada = 0.0
+        elif dist_segura < 1.50:
+            self.estado = "DESVIANDO"
+            v_desejada = 0.8
+            w_desejada = 1.2
+        else:
+            self.estado = "NAVEGANDO"
+            v_desejada = 2.0
+            erro_ang = (angulo_alvo - self.theta + math.pi) % (2 * math.pi) - math.pi
+            w_desejada = max(-1.5, min(1.5, erro_ang * 2.5))
+
+        # Atualização Cinemática
+        self.v = v_desejada
+        self.theta += w_desejada * dt
+        self.x += self.v * math.cos(self.theta) * dt
+        self.y += self.v * math.sin(self.theta) * dt
+
+Com base nos conceitos teóricos de robótica autônoma e na leitura do algoritmo acima, responda de forma técnica e objetiva às duas perguntas a seguir:
+
+    1: Explique qual técnica de filtragem está implementada no método filtrar_leitura() e demonstre, com um exemplo numérico de 3 leituras consecutivas contendo uma falha de sensor, por que essa abordagem evita um acidente na condição if dist_segura <= dist_parada + 0.30:. Além disso, explique o significado físico do termo (self.v ** 2) / (2.0 * self.a_freio) e por que o gatilho de frenagem depende do quadrado da velocidade atual (self.v).
+
+    2: Analise a estrutura condicional (if / elif / else) do método passo_controle sob a ótica de uma Máquina de Estados Finitos Hierárquica, explicando por que a verificação de FREIO_EMERGENCIA deve obrigatoriamente preceder o estado DESVIANDO. Em seguida, aponte uma simplificação física irrealista na linha self.v = v_desejada (na seção de atualização cinemática) e explique como ela compromete a segurança calculada em dist_parada em um robô real.
